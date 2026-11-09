@@ -23,3 +23,6 @@ These are necessary for LibRI:
   > If Math Kernel Library (MKL) is linked as the BLAS and LAPACK backend, it's recommended to define macro `__MKL_RI` before including any LibRI's header file. Some LibRI's functions will be silently substituted with calls to MKL routines.
 - [cereal](https://uscilab.github.io/cereal/) library, a head-only library for serialization.
 - [LibComm](https://github.com/abacusmodeling/LibComm.git) library, a head-only library for inter-process communication.
+
+GPU host packing changes, ownership rules, measured timings and validation
+limits are described in [GPU host packing](docs/gpu-host-packing.md).

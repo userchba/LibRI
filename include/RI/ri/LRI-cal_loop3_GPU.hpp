@@ -108,8 +108,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if (this->filter_atom->filter_for31(label, Aa01, Ab01, Ab2))	continue;
 									const Tensor<Tdata> &D_b = tools.get_Ds_ab(Label::ab::b, Ab01, Ab2);
 									if(D_b.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a0b0.insert(Aa01, Ab01, D_a0b0);
@@ -170,8 +168,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if (this->filter_atom->filter_for32(label, Aa01, Aa2, Ab2))	continue;
 									const GPU_Data::Pack &D_mul = rDs_mul.find_2nd(Aa01, Ab2);
 									if (!D_mul.exist)	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_mul.insert_2nd(D_mul);
 										rDs_a.insert(Aa01, Aa2, D_a);
@@ -244,8 +240,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if (this->filter_atom->filter_for31(label, Aa01, Ab01, Ab2))	continue;
 									const Tensor<Tdata> &D_b = tools.get_Ds_ab(Label::ab::b, Ab01, Ab2);
 									if(D_b.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a0b1.insert(Aa01, Ab01, D_a0b1);
@@ -306,8 +300,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if (this->filter_atom->filter_for32(label, Aa01, Aa2, Ab2))	continue;
 									const GPU_Data::Pack &D_mul = rDs_mul.find_2nd(Aa01, Ab2);
 									if (!D_mul.exist)	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_mul.insert_2nd(D_mul);
 										rDs_a.insert(Aa01, Aa2, D_a);
@@ -381,8 +373,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Ab01,Ab2))	continue;
 									const Tensor<Tdata> &D_a1b2 = tools.get_Ds_ab(Label::ab::a1b2, Aa01, Ab2);
 									if(D_a1b2.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a1b2.insert(Aa01, Ab2, D_a1b2);
@@ -434,8 +424,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if (this->filter_atom->filter_for32(label, Aa01, Aa2, Ab01))	continue;
 									const Tensor<Tdata> &D_a = Global_Func::find(Ds_a_transpose, Aa01, Aa2);
 									if (D_a.empty())	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a0b0.insert(Aa01, Ab01, D_a0b0);
@@ -521,8 +509,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Ab01,Ab2))	continue;
 									const Tensor<Tdata> &D_a1b2 = tools.get_Ds_ab(Label::ab::a1b2, Aa01, Ab2);
 									if(D_a1b2.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a1b2.insert(Aa01, Ab2, D_a1b2);
@@ -574,8 +560,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if (this->filter_atom->filter_for32(label, Aa01, Aa2, Ab01))	continue;
 									const Tensor<Tdata> &D_a = tools.get_Ds_ab(Label::ab::a, Aa01, Aa2);
 									if (D_a.empty())	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a0b1.insert(Aa01, Ab01, D_a0b1);
@@ -661,8 +645,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Ab01,Ab2))	continue;
 									const Tensor<Tdata> &D_a0b2 = tools.get_Ds_ab(Label::ab::a0b2, Aa01, Ab2);
 									if(D_a0b2.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a0b2.insert(Aa01, Ab2, D_a0b2);
@@ -714,8 +696,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if (this->filter_atom->filter_for32(label, Aa01, Aa2, Ab01))	continue;
 									const Tensor<Tdata> &D_a = tools.get_Ds_ab(Label::ab::a, Aa01, Aa2);
 									if (D_a.empty())	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a1b0.insert(Aa01, Ab01, D_a1b0);
@@ -801,8 +781,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Ab01,Ab2))	continue;
 									const Tensor<Tdata> &D_a0b2 = tools.get_Ds_ab(Label::ab::a0b2, Aa01, Ab2);
 									if(D_a0b2.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a0b2.insert(Aa01, Ab2, D_a0b2);
@@ -854,8 +832,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if (this->filter_atom->filter_for32(label, Aa01, Aa2, Ab01))	continue;
 									const Tensor<Tdata> &D_a = Global_Func::find(Ds_a_transpose, Aa01, Aa2);
 									if (D_a.empty())	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a1b1.insert(Aa01, Ab01, D_a1b1);
@@ -943,8 +919,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Ab01,Aa2))	continue;
 									const Tensor<Tdata> &D_a2b1 = tools.get_Ds_ab(Label::ab::a2b1, Aa2, Ab01);
 									if(D_a2b1.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a2b1.insert(Aa2.first, {Ab01.first, (Ab01.second - Aa2.second) % this->period}, D_a2b1);
@@ -996,8 +970,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if (this->filter_atom->filter_for32(label, Aa01, Ab01, Ab2))	continue;
 									const Tensor<Tdata> &D_b = tools.get_Ds_ab(Label::ab::b, Ab01, Ab2);
 									if(D_b.empty())	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a0b0.insert(Aa01, Ab01, D_a0b0);
@@ -1083,8 +1055,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Ab01,Aa2))	continue;
 									const Tensor<Tdata> &D_a2b0 = tools.get_Ds_ab(Label::ab::a2b0, Aa2, Ab01);
 									if(D_a2b0.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a2b0.insert(Aa2.first, {Ab01.first, (Ab01.second - Aa2.second) % this->period}, D_a2b0);
@@ -1136,8 +1106,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if (this->filter_atom->filter_for32(label, Aa01, Ab01, Ab2))	continue;
 									const Tensor<Tdata> &D_b = tools.get_Ds_ab(Label::ab::b, Ab01, Ab2);
 									if(D_b.empty())	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a0b1.insert(Aa01, Ab01, D_a0b1);
@@ -1223,8 +1191,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Ab01,Aa2))	continue;
 									const Tensor<Tdata> &D_a2b1 = tools.get_Ds_ab(Label::ab::a2b1, Aa2, Ab01);
 									if(D_a2b1.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a2b1.insert(Aa2.first, {Ab01.first, (Ab01.second - Aa2.second) % this->period}, D_a2b1);
@@ -1276,8 +1242,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if (this->filter_atom->filter_for32(label, Aa01, Ab01, Ab2))	continue;
 									const Tensor<Tdata> &D_b = tools.get_Ds_ab(Label::ab::b, Ab01, Ab2);
 									if(D_b.empty())	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a1b0.insert(Aa01, Ab01, D_a1b0);
@@ -1363,8 +1327,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Ab01,Aa2))	continue;
 									const Tensor<Tdata> &D_a2b0 = tools.get_Ds_ab(Label::ab::a2b0, Aa2, Ab01);
 									if(D_a2b0.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a2b0.insert(Aa2.first, {Ab01.first, (Ab01.second - Aa2.second) % this->period}, D_a2b0);
@@ -1416,8 +1378,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if (this->filter_atom->filter_for32(label, Aa01, Ab01, Ab2))	continue;
 									const Tensor<Tdata> &D_b = tools.get_Ds_ab(Label::ab::b, Ab01, Ab2);
 									if(D_b.empty())	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a1b1.insert(Aa01, Ab01, D_a1b1);
@@ -1505,8 +1465,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Aa2,Ab2))	continue;
 									const Tensor<Tdata> &D_a2b2 = tools.get_Ds_ab(Label::ab::a2b2, Aa2, Ab2);
 									if(D_a2b2.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a2b2.insert(Aa2.first, {Ab2.first, (Ab2.second - Aa2.second) % period}, D_a2b2);
@@ -1558,8 +1516,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(D_b.empty())	continue;
 									const GPU_Data::Pack &D_mul = rDs_mul.find_2nd(Aa01, Ab2);
 									if (!D_mul.exist)	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a0b0.insert(Aa01, Ab01, D_a0b0);
@@ -1645,8 +1601,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Aa2,Ab2))	continue;
 									const Tensor<Tdata> &D_a2b2 = tools.get_Ds_ab(Label::ab::a2b2, Aa2, Ab2);
 									if(D_a2b2.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a2b2.insert(Aa2.first, {Ab2.first, (Ab2.second - Aa2.second) % period}, D_a2b2);
@@ -1697,8 +1651,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(D_b.empty())	continue;
 									const GPU_Data::Pack &D_mul = rDs_mul.find_2nd(Aa01, Ab2);
 									if (!D_mul.exist)	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a0b1.insert(Aa01, Ab01, D_a0b1);
@@ -1784,8 +1736,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Aa2,Ab2))	continue;
 									const Tensor<Tdata> &D_a2b2 = tools.get_Ds_ab(Label::ab::a2b2, Aa2, Ab2);
 									if(D_a2b2.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a2b2.insert(Aa2.first, {Ab2.first, (Ab2.second - Aa2.second) % period}, D_a2b2);
@@ -1836,8 +1786,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(D_b.empty())	continue;
 									const GPU_Data::Pack &D_mul = rDs_mul.find_2nd(Aa01, Ab2);
 									if (!D_mul.exist)	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a1b0.insert(Aa01, Ab01, D_a1b0);
@@ -1923,8 +1871,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Aa2,Ab2))	continue;
 									const Tensor<Tdata> &D_a2b2 = tools.get_Ds_ab(Label::ab::a2b2, Aa2, Ab2);
 									if(D_a2b2.empty())	continue;
-
-									#pragma omp critical(rDs_mul)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a2b2.insert(Aa2.first, {Ab2.first, (Ab2.second - Aa2.second) % period}, D_a2b2);
@@ -1975,8 +1921,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(D_b.empty())	continue;
 									const GPU_Data::Pack &D_mul = rDs_mul.find_2nd(Aa01, Ab2);
 									if (!D_mul.exist)	continue;
-
-									#pragma omp critical(rDs_output)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a1b1.insert(Aa01, Ab01, D_a1b1);
@@ -2063,8 +2007,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Ab01,Ab2))	continue;
 									const Tensor<Tdata> &D_a1b2 = tools.get_Ds_ab(Label::ab::a1b2, Aa01, Ab2);
 									if(D_a1b2.empty())	continue;
-
-									#pragma omp critical(rDs_mul_1)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a1b2.insert(Aa01, Ab2, D_a1b2);
@@ -2113,8 +2055,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for32(label, Aa01, Ab01, Aa2))	continue;
 									const Tensor<Tdata> &D_a2b1 = tools.get_Ds_ab(Label::ab::a2b1, Aa2, Ab01);
 									if(D_a2b1.empty())	continue;
-
-									#pragma omp critical(rDs_mul_2)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a2b1.insert(Aa2.first, {Ab01.first, (Ab01.second - Aa2.second) % period}, D_a2b1);
@@ -2158,8 +2098,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 								if (!D_mul_1.exist)	continue;
 								const GPU_Data::Pack &D_mul_2 = rDs_mul_2.find_2nd(Aa01, Ab01);
 								if (!D_mul_2.exist)	continue;
-
-								#pragma omp critical(rDs_output)
 								{
 									rDs_mul_1.insert_2nd(D_mul_1);
 									rDs_mul_2.insert_2nd(D_mul_2);
@@ -2228,8 +2166,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Ab01,Ab2))	continue;
 									const Tensor<Tdata> &D_a0b2 = tools.get_Ds_ab(Label::ab::a0b2, Aa01, Ab2);
 									if(D_a0b2.empty())	continue;
-
-									#pragma omp critical(rDs_mul_1)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a0b2.insert(Aa01, Ab2, D_a0b2);
@@ -2278,8 +2214,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for32(label, Aa01, Ab01, Aa2))	continue;
 									const Tensor<Tdata> &D_a2b0 = tools.get_Ds_ab(Label::ab::a2b0, Aa2, Ab01);
 									if(D_a2b0.empty())	continue;
-
-									#pragma omp critical(rDs_mul_2)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a2b0.insert(Aa2.first, {Ab01.first, (Ab01.second - Aa2.second) % period}, D_a2b0);
@@ -2323,8 +2257,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 								if (!D_mul_1.exist)	continue;
 								const GPU_Data::Pack &D_mul_2 = rDs_mul_2.find_2nd(Aa01, Ab01);
 								if (!D_mul_2.exist)	continue;
-
-								#pragma omp critical(rDs_output)
 								{
 									rDs_mul_1.insert_2nd(D_mul_1);
 									rDs_mul_2.insert_2nd(D_mul_2);
@@ -2393,8 +2325,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Ab01,Ab2))	continue;
 									const Tensor<Tdata> &D_a0b2 = tools.get_Ds_ab(Label::ab::a0b2, Aa01, Ab2);
 									if(D_a0b2.empty())	continue;
-
-									#pragma omp critical(rDs_mul_1)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a0b2.insert(Aa01, Ab2, D_a0b2);
@@ -2443,8 +2373,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for32(label, Aa01, Ab01, Aa2))	continue;
 									const Tensor<Tdata> &D_a2b1 = tools.get_Ds_ab(Label::ab::a2b1, Aa2, Ab01);
 									if(D_a2b1.empty())	continue;
-
-									#pragma omp critical(rDs_mul_2)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a2b1.insert(Aa2.first, {Ab01.first, (Ab01.second - Aa2.second) % period}, D_a2b1);
@@ -2488,8 +2416,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 								if (!D_mul_1.exist)	continue;
 								const GPU_Data::Pack &D_mul_2 = rDs_mul_2.find_2nd(Aa01, Ab01);
 								if (!D_mul_2.exist)	continue;
-
-								#pragma omp critical(rDs_output)
 								{
 									rDs_mul_1.insert_2nd(D_mul_1);
 									rDs_mul_2.insert_2nd(D_mul_2);
@@ -2558,8 +2484,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for31(label,Aa01,Ab01,Ab2))	continue;
 									const Tensor<Tdata> &D_a1b2 = tools.get_Ds_ab(Label::ab::a1b2, Aa01, Ab2);
 									if(D_a1b2.empty())	continue;
-
-									#pragma omp critical(rDs_mul_1)
 									{
 										rDs_b.insert(Ab01.first, {Ab2.first, (Ab2.second - Ab01.second) % period}, D_b);
 										rDs_a1b2.insert(Aa01, Ab2, D_a1b2);
@@ -2608,8 +2532,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 									if(this->filter_atom->filter_for32(label, Aa01, Ab01, Aa2))	continue;
 									const Tensor<Tdata> &D_a2b0 = tools.get_Ds_ab(Label::ab::a2b0, Aa2, Ab01);
 									if(D_a2b0.empty())	continue;
-
-									#pragma omp critical(rDs_mul_2)
 									{
 										rDs_a.insert(Aa01, Aa2, D_a);
 										rDs_a2b0.insert(Aa2.first, {Ab01.first, (Ab01.second - Aa2.second) % period}, D_a2b0);
@@ -2653,8 +2575,6 @@ void LRI<TA,Tcell,Ndim,Tdata>::cal_loop3_GPU(
 								if (!D_mul_1.exist)	continue;
 								const GPU_Data::Pack &D_mul_2 = rDs_mul_2.find_2nd(Aa01, Ab01);
 								if (!D_mul_2.exist)	continue;
-
-								#pragma omp critical(rDs_output)
 								{
 									rDs_mul_1.insert_2nd(D_mul_1);
 									rDs_mul_2.insert_2nd(D_mul_2);

@@ -35,3 +35,25 @@ or `-1` for all), backend (`cpu`, `gpu`, `all`) and scalar (`real`, `complex`,
 `all`). Index 1 is `a1b2_a2b1`: filtering `(Aa01,Aa2)` while summing over `Aa2`
 incorrectly removes contributions to the accepted output pair `(Aa01,Ab01)`.
 The off-diagonal sector with a nonzero translation detects this error.
+
+The packing tests exercise worker-private metadata and upload ownership:
+
+- `pack_storage` needs no GPU and checks duplicate keys, offset assignment,
+  operand/dimension ordering, retained counts after release, and allocator
+  boundaries at 1, 4 and 16 OpenMP threads. It requires C++17.
+- With `ENABLE_GPU=ON`, `pack_threads_1`, `pack_threads_4` and
+  `pack_threads_16` check all four scalar types, unique tensor values, pointer
+  tables, uneven shapes, temporary segmentation and empty batches.
+- `lri_symmetry_threads` repeats the existing real/complex contraction fixture
+  at 16 threads. Its existing numerical tolerance remains unchanged.
+
+Run within an allocation with enough CPUs for the selected thread counts and
+one GPU for GPU tests. If MPI otherwise binds the rank to one core, configure
+with `-DMPIEXEC_PREFLAGS="--bind-to;none"` for OpenMPI.
+
+For sanitizer coverage, configure a separate CPU-only build with
+`-DCMAKE_CXX_FLAGS="-fsanitize=address,undefined -fno-omit-frame-pointer"`,
+build `test_pack_storage`, and run `ctest -R '^pack_storage$'` there.
+
+See [GPU host packing](../../docs/gpu-host-packing.md) for the code changes,
+input reference lifetime, timing interpretation and production evidence.
