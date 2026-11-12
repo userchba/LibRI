@@ -12,10 +12,10 @@
 #endif
 
 #ifdef __DDLA_RI
-    #if (defined(DDLA_USE_CUDA) + defined(DDLA_USE_HIP)) != 1
-        #error "__DDLA_RI requires exactly one of DDLA_USE_CUDA or DDLA_USE_HIP"
-    #endif
     #include <ddla/ddla.h>
+    #if !DDLA_HAS_GPU
+        #error "__DDLA_RI requires LibDDLA built with GPU support"
+    #endif
 
 #elif defined(__MAGMA_RI)
     #include "Magmablas_Interface-Contiguous.h"
